@@ -1,18 +1,26 @@
 # cluster-walk
 
-Run a command once for each cluster in a JSON configuration file. Python 3.14
-or newer is required. Install with `uv sync` or `pip install .`.
+Run a command once for each cluster in a JSON configuration file, or for a
+single specified cluster. Python 3.14 or newer is required. Install with
+`uv sync` or `pip install .`.
 
 The default configuration is `config.json` in the current directory; use
 `--config PATH` before `launch` to select another file. It must contain an
 object with a `clusters` array of non-empty strings.
+Use `--cluster NAME` before `launch` to select one cluster; this takes priority
+over `--config` and does not require a configuration file.
 
 ```sh
 cluster-walk --config config.json launch --dryrun 'echo hello'
 cluster-walk --config config.json launch 'kubectl get pods'
+cluster-walk --cluster my-cluster launch 'kubectl get pods'
 ```
 
-Each invocation runs `kubie CLUSTER exec default COMMAND`, inherits the
+Use `cluster-walk --help` or `cluster-walk launch --help` for argument details.
+Pass the shell command as one quoted argument; use `--` before it if it begins
+with a dash.
+
+Each invocation runs `kubie exec CLUSTER default COMMAND`, inherits the
 environment, and receives the cluster name in `CLUSTER_WALK_CLUSTER`. Commands run
 in configuration order, including duplicates, and stop on the first failure.
 Earlier invocations may already have completed.
