@@ -1,0 +1,25 @@
+[project]
+name = "cluster-walk"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "JJ", email = "javier.juarez.martinez@ibm.com" }
+]
+requires-python = ">=3.14"
+dependencies = [
+    "click>=8.5.1",
+]
+
+[project.scripts]
+cluster-walk = "cluster_walk.__main__:main"
+
+[build-system]
+requires = ["uv_build>=0.13.9,<0.14.0"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "pytest>=9.2.0",
+    "ruff>=0.17.6",
+]

@@ -1,0 +1,18 @@
+version: '3'
+
+tasks:
+  lint:
+    desc: Check Python code with Ruff
+    cmds:
+      - uv run ruff check .
+
+  test:
+    desc: Run the test suite
+    cmds:
+      - uv run pytest
+
+  check:
+    desc: Run lint and tests
+    cmds:
+      - task: lint
+      - task: test
