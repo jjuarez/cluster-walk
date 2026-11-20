@@ -35,5 +35,10 @@ Install the development dependencies and use [Task](https://taskfile.dev/) to ru
 uv sync --dev
 task lint
 task test
-task check  # Run both
 ```
+
+## CI and releases
+
+GitHub Actions runs Ruff, pytest, and a package build on pushes and pull requests. It uses the committed `uv.lock` and Python version in `.python-version`.
+
+To publish a GitHub release, update the version in `pyproject.toml`, run `uv lock`, commit those changes, and push a matching tag (for example, `v0.2.0` for version `0.2.0`). After the checks pass, Actions creates a GitHub release with the wheel and source distribution attached. The tag must match the project version exactly. A release is not uploaded to PyPI.
