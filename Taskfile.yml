@@ -1,18 +1,25 @@
+---
 version: '3'
 
 tasks:
   lint:
     desc: Check Python code with Ruff
+    silent: true
     cmds:
       - uv run ruff check .
 
   test:
     desc: Run the test suite
+    silent: true
     cmds:
       - uv run pytest
 
-  check:
-    desc: Run lint and tests
+  cleanup:
+    desc: Cleanup the Python project
+    silent: true
     cmds:
-      - task: lint
-      - task: test
+      - rm -fr .venv
+      - rm -fr .ruff_cache .pytest_cache
+      - find . -type f -iname *.pyc -delete
+      - find . -type d -iname __pycache__ -delete
+...
